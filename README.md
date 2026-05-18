@@ -10,16 +10,16 @@ This repository contains symbolic and matrix-oriented MATLAB routines for constr
 
 ## Repository Structure
 
+```text
 RF-PALS-MATLAB/
-│
 ├── src/
 │   ├── RF2PALS.m
 │   ├── PALS2RF.m
 │   └── polyvec.m
-│
 ├── examples/
-│
+├── LICENSE
 └── README.md
+```
 
 ---
 
