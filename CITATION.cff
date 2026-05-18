@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "RF-PALS-MATLAB"
+authors:
+  - family-names: "Pereyda-Pierre"
+    given-names: "Carlos Alberto"
+repository-code: "https://github.com/CarlosPereyda/RF-PALS-MATLAB"
+url: "https://github.com/CarlosPereyda/RF-PALS-MATLAB"
+license: "MIT"
+abstract: "MATLAB implementation of the RF-PALS correspondence framework for rational functions and polynomially associated linear systems."
