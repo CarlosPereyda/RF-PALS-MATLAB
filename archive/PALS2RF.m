@@ -1,5 +1,8 @@
 function [F,D,N,P,Q,lambda,Fpf,Df] = PALS2RF(A,n,s)
-% PALS2RF
+% PALS2RF  ***ARCHIVED - DO NOT USE.***
+% The reverse construction implemented here is not valid in general
+% (see archive/README.md). Kept only for the record.
+%
 % -------------------------------------------------------------------------
 % Reconstructs an associated rational function from a Polynomially
 % Associated Linear System (PALS).
