@@ -1,11 +1,17 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 type: software
-title: "RF-PALS-MATLAB"
+title: "RF2LS: partial fractions, column by column"
 authors:
   - family-names: "Pereyda-Pierre"
     given-names: "Carlos Alberto"
 repository-code: "https://github.com/CarlosPereyda/RF-PALS-MATLAB"
 url: "https://github.com/CarlosPereyda/RF-PALS-MATLAB"
 license: "MIT"
-abstract: "MATLAB implementation of the RF-PALS correspondence framework for rational functions and polynomially associated linear systems."
+abstract: "MATLAB and Python routines that build the linear system of a partial fraction decomposition column by column, as a change of basis from the partial fraction basis to the monomial basis."
+keywords:
+  - partial fractions
+  - change of basis
+  - linear algebra
+  - Laplace transform
+  - engineering mathematics
