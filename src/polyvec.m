@@ -21,7 +21,7 @@ function v = polyvec(P,s,delta)
         error('polyvec:notPolynomial', 'The input is not a polynomial in %s.', char(s))
     end
 
-    if isAlways(P == 0)
+    if isequal(P, sym(0))
         v = sym(zeros(delta,1));
         return
     end

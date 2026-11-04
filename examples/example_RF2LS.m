@@ -38,3 +38,6 @@ disp('lambda (A1, A2, B) ='), disp(simplify(lambda))
 lambda_num = subs(lambda, [a b c d], [22 33 98 76]);
 disp('With a = 22, b = 33, c = 98, d = 76:'), disp(lambda_num)
 % Expected: [149/44; 193/2; -149/44]
+
+% Expected matrices for the three cases above (same as in the article):
+%   [1 1; 2 1],  [1 1 0; 2 1 1; 1 0 0],  [1 1 0; 0 1 1; 4 0 1]
