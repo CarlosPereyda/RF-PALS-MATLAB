@@ -42,9 +42,12 @@ function [M,n,P,den,numPF,lambda,Fpf,Df,N,D] = RF2LS(Nin,Din,s)
 %       is kept as a quadratic block; the result is still a valid
 %       decomposition, only not fully split over the reals. Factors of
 %       degree greater than 2 are not supported.
-%     * The unknowns are ordered factor by factor, as returned by FACTOR,
-%       and by increasing power within each factor; for a quadratic factor
-%       the coefficient of s (B) comes before the constant (C).
+%     * The unknowns are ordered factor by factor: linear factors first,
+%       then quadratic ones, each group by increasing constant term (for
+%       symbolic coefficients the order returned by FACTOR is kept). Within
+%       each factor the powers increase, and for a quadratic factor the
+%       coefficient of s (B) comes before the constant (C). For example,
+%       s*(s+1)^2 gives the unknowns of 1/s, 1/(s+1), 1/(s+1)^2.
 %
 %   Example
 %     syms s
@@ -88,13 +91,23 @@ function [M,n,P,den,numPF,lambda,Fpf,Df,N,D] = RF2LS(Nin,Din,s)
         if isempty(symvar(f)) || ~has(f,s)
             continue                    % skip constant factors, if any
         end
-        j = find(arrayfun(@(g) isAlways(expand(f - g) == 0), uniqueFac), 1);
+        j = find(arrayfun(@(g) isequal(expand(f - g), sym(0)), uniqueFac), 1);
         if isempty(j)
             uniqueFac(end+1,1) = f;    %#ok<AGROW>
             mult(end+1,1) = 1;         %#ok<AGROW>
         else
             mult(j) = mult(j) + 1;
         end
+    end
+
+    % Deterministic order: linear factors first, then quadratic ones, each
+    % group by increasing constant term (when the coefficients are numeric).
+    c0 = subs(uniqueFac, s, 0);
+    if isempty(symvar(c0))
+        degs = arrayfun(@(f) polynomialDegree(f,s), uniqueFac);
+        [~,ord] = sortrows([degs(:), double(c0(:))]);
+        uniqueFac = uniqueFac(ord);
+        mult = mult(ord);
     end
 
     %% 3) Associated polynomials, one per unknown (column by column)
@@ -154,7 +167,7 @@ end
 function Q = exactQuotient(D,g,s)
 %EXACTQUOTIENT  Quotient D/g, checking that the division is exact.
     [Q,R] = quorem(D,g,s);
-    if ~isAlways(expand(R) == 0)
+    if ~isequal(simplify(expand(R)), sym(0))
         error('RF2LS:inexactDivision', 'Non-exact division of D by %s.', char(g))
     end
     Q = expand(Q);
